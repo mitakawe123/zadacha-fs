@@ -5,7 +5,7 @@
 
 <h2>@ViewBag.Title</h2>
 
-<ul>
+<ul style="list-style: none;padding: 0;">
     @foreach (var node in Model)
     {
         @RenderNode(node)
@@ -14,24 +14,18 @@
 
 @helper RenderNode(TT.Mvc.Models.BrandNode node)
 {
-    <li>
-        <strong>id:</strong> @node.RecursionId<br />
-        @if (node.ProductCode != "")
+    <li style="border: 1px solid black;">
+        @if (node.ProductValue != "" || node.ProductCode != "" || node.ProductName != "")
         {
+            <strong>id:</strong> @node.RecursionId<br />
             <strong>code:</strong> @node.ProductCode<br />
-        }
-        @if (node.ProductName != "")
-        {
             <strong>name:</strong> @node.ProductName<br />
-        }
-        @if (node.ProductValue != "")
-        {
             <strong>@node.Name:</strong>@Html.Raw(node.ProductValue)<br />
         }
 
         @if (node.Children.Count > 0)
         {
-            <ul>
+            <ul style="list-style: none;padding: 0;">
                 @foreach (var child in node.Children)
                 {
                     @RenderNode(child)
