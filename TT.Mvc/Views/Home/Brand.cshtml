@@ -1,0 +1,43 @@
+﻿@model List<TT.Mvc.Models.BrandNode>
+@{
+    ViewBag.Title = "Brand";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<ul>
+    @foreach (var node in Model)
+    {
+        @RenderNode(node)
+    }
+</ul>
+
+@helper RenderNode(TT.Mvc.Models.BrandNode node)
+{
+    <li>
+        <strong>id:</strong> @node.RecursionId<br />
+        @if (node.ProductCode != "")
+        {
+            <strong>code:</strong> @node.ProductCode<br />
+        }
+        @if (node.ProductName != "")
+        {
+            <strong>name:</strong> @node.ProductName<br />
+        }
+        @if (node.ProductValue != "")
+        {
+            <strong>@node.Name:</strong>@Html.Raw(node.ProductValue)<br />
+        }
+
+        @if (node.Children.Count > 0)
+        {
+            <ul>
+                @foreach (var child in node.Children)
+                {
+                    @RenderNode(child)
+                }
+            </ul>
+        }
+    </li>
+}
+<p>Use this area to provide brand information.</p>
