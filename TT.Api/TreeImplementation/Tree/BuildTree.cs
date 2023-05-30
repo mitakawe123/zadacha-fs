@@ -6,7 +6,7 @@ namespace TT.Api.TreeImplementation.Tree
     {
         public List<Node> BuildTreeMethod(List<Node> nodes)
         {
-            Node rootNode = new Node(0, nodes[0].Name, nodes[0].RecursionLevel);
+            Node rootNode = new Node(0, nodes[0].Name, nodes[0].RecursionLevel, nodes[0].ProductName, nodes[0].ProductCode, nodes[0].ProductValue);
             Dictionary<int, Node> recursionIdTracker = new Dictionary<int, Node>();
 
             foreach (Node node in nodes)

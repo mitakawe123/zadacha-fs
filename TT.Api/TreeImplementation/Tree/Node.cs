@@ -4,27 +4,22 @@ namespace TT.Api.TreeImplementation.Tree
 {
     public class Node
     {
-        public List<Node> Children { get; set; }
-        public int RecursionId { get; set; }
-        public string Name { get; set; }
-        public int RecursionLevel { get; set; }
+        public List<Node> Children { get; } = new List<Node>();
+        public int RecursionId { get; }
+        public string Name { get; }
+        public int RecursionLevel { get; }
+        public string ProductName { get; }
+        public string ProductCode { get; }
+        public string ProductValue { get; }
 
-        //values to show to the user
-        public string ProductName { get; set; }
-        public string ProductCode { get; set; }
-        public string ProductValue { get; set; }
-
-        public Node()
+        public Node(int recursionId, string name, int recursionLevel, string productName, string productCode, string productValue)
         {
-            Children = new List<Node>();
-        }
-
-        public Node(int RecursionId, string Name, int RecursionLevel)
-        {
-            this.RecursionId = RecursionId;
-            this.Name = Name;
-            this.RecursionLevel = RecursionLevel;
-            Children = new List<Node>();
+            RecursionId = recursionId;
+            Name = name;
+            RecursionLevel = recursionLevel;
+            ProductName = productName;
+            ProductCode = productCode;
+            ProductValue = productValue;
         }
     }
 }

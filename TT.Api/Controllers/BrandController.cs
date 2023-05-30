@@ -44,17 +44,15 @@ namespace TT.Api.Controllers
 
                 using SqlDataReader oReader = command.ExecuteReader();
                 while (oReader.Read())
-                {
-                    nodes.Add(new Node()
-                    {
-                        RecursionId = int.Parse(oReader["RecursionId"].ToString()),
-                        Name = oReader["Name"].ToString(),
-                        RecursionLevel = int.Parse(oReader["RecursionLevel"].ToString()),
-                        ProductName = oReader["ProductName"].ToString(),
-                        ProductCode = oReader["ProductCode"].ToString(),
-                        ProductValue = oReader["ProductValue"].ToString(),
-                    });
-                }
+                    nodes.Add(new Node(
+                            int.Parse(oReader["RecursionId"].ToString()),
+                            oReader["Name"].ToString(),
+                            int.Parse(oReader["RecursionLevel"].ToString()),
+                            oReader["ProductName"].ToString(),
+                            oReader["ProductCode"].ToString(),
+                            oReader["ProductValue"].ToString()
+                        ));
+                
                 connection.Close();
             }
 
