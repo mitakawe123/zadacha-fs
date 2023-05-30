@@ -20,7 +20,6 @@ namespace TT.Api.Controllers
         public BrandController(IBrandService mainService) : base(mainService)
         {
             this.mainService = mainService;
-            Console.WriteLine("Constructor");
         }
 
         [HttpDelete]
