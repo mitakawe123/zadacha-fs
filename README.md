@@ -1,6 +1,6 @@
 # What I did
-1.Created SQL Store Procedure with recursion for the Properties table
-  -Made recursion from parentId column to Id column
+1.Created SQL Store Procedure with recursion for the Properties table<br>
+  -Made recursion from parentId column to Id column<br>
   -Select the necessary column and store the query in procedure 
 
 2.Setting up the API route
