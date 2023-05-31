@@ -10,7 +10,7 @@
   
 3.Tree structure<br>
   &ensp;&ensp;-Made a simple Node class with all the properties from the DB response<br>
-  &ensp;&ensp;-And created a fucntion add add all the child Nodes to their parent Nodes
+  &ensp;&ensp;-And created a fucntion to add all the child Nodes to their parent Nodes
   
 4.Display the data<br>
   &ensp;&ensp;-Call the endpoint from the frontend and deserialize the response<br>
