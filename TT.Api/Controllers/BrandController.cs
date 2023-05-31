@@ -29,10 +29,11 @@ namespace TT.Api.Controllers
         [Route("export")]
         public IActionResult Export()
         {
+            DotNetEnv.Env.Load();
             List<Node> nodes = new List<Node>();
             string connectionString = "Server=EL-N-0047\\SQLEXPRESS;Database=zadacha;User Id=admin;Password=pmghello!;";
             string storeProcedureFullName = "zadacha.dbo.RecursiveTreeProcedure";
-
+                
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(storeProcedureFullName, connection)
