@@ -15,10 +15,13 @@ namespace TT.Api.TreeImplementation.Tree
 
             foreach (Node node in nodes)
             {
-                if (node.RecursionLevel == 0) 
+                if (node.RecursionLevel == 0)
                     rootNode.Children.Add(node);
                 else if (recursionIdTracker.TryGetValue(node.RecursionLevel, out Node parentNode))
-                        parentNode.Children.Add(node);
+                {
+                    parentNode.Children.Add(node);
+                    node.DirectParent = parentNode.Name;
+                }
             }
 
             return rootNode.Children;

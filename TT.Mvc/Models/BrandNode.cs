@@ -11,6 +11,7 @@ namespace TT.Mvc.Models
         public string ProductName { get; set; }
         public string ProductCode { get; set; }
         public string ProductValue { get; set; }
+        public string DirectParent { get; set; }
 
         public BrandNode()
         {

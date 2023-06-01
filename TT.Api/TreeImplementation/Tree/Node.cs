@@ -11,6 +11,7 @@ namespace TT.Api.TreeImplementation.Tree
         public string ProductName { get; }
         public string ProductCode { get; }
         public string ProductValue { get; }
+        public string DirectParent { get; set; }
 
         public Node(int recursionId, string name, int recursionLevel, string productName, string productCode, string productValue)
         {
