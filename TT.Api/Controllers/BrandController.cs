@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Net;
 using System.Threading.Tasks;
 using TT.Api.TreeImplementation;
 using TT.Api.TreeImplementation.Tree;
 using TT.Lib.DataAccess;
 using TT.Lib.Entities;
-using TT.Lib.Mvc;   
+using TT.Lib.Mvc;
+using TT.Api.TreeImplementation.Tree;
 
 namespace TT.Api.Controllers
 {
@@ -45,13 +44,18 @@ namespace TT.Api.Controllers
                 using SqlDataReader oReader = command.ExecuteReader();
                 while (oReader.Read())
                 {
-                    int brandId,parentId;
+                    int brandId, parentId;
 
                     int.TryParse(oReader["BrandId"].ToString(), out brandId);
-                    int.TryParse(oReader["ParentId"].ToString(), out parentId);
+
+                    string parentIdString = oReader["ParentId"].ToString();
+                    if (!string.IsNullOrEmpty(parentIdString))
+                        int.TryParse(parentIdString, out parentId);
+                    else
+                        parentId = int.Parse(oReader["RecursionLevel"].ToString());
 
                     nodes.Add(new Node(
-                        oReader["BrandName"].ToString(),
+                        oReader["BrandName"].ToString(),    
                         oReader["ProductCode"].ToString(),
                         brandId,
                         int.Parse(oReader["RecursionId"].ToString()),
@@ -62,16 +66,17 @@ namespace TT.Api.Controllers
                         int.Parse(oReader["RecursionLevel"].ToString())
                     ));
                 }
+
                 connection.Close();
             }
 
             BuildTree treeBuilder = new BuildTree();
-            List<Node> tree = treeBuilder.BuildTreeMethod(nodes);
+            Node tree = treeBuilder.BuildTreeMethod(nodes);
 
-            //StructureData structureData = new StructureData();
-            //List<Node> structuredData = structureData.StructureDataMethod(tree);
-            
-            return Ok(tree);
+            BuildProducts buildProducts = new BuildProducts(tree);
+            Node travers = buildProducts.TraverseAndPush();
+
+            return Ok(travers);
         }
     }
 }

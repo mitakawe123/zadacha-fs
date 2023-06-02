@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using System.Collections.Generic;
 
 namespace TT.Api.TreeImplementation.Tree
 {
     public class BuildTree
     {
-        public List<Node> BuildTreeMethod(List<Node> nodes)
+        public Node BuildTreeMethod(List<Node> nodes)
         {
             Dictionary<int, List<Node>> nodeDict = new Dictionary<int, List<Node>>();
+            Node rootNode = nodes[0];
+
             foreach (Node node in nodes)
             {
                 if (!nodeDict.ContainsKey(node.ParentId))
@@ -18,13 +17,23 @@ namespace TT.Api.TreeImplementation.Tree
                 nodeDict[node.ParentId].Add(node);
             }
 
-            foreach (Node node in nodes)
-            {
-                if (nodeDict.ContainsKey(node.RecursionId))
-                    node.Children.AddRange(nodeDict[node.RecursionId]);
-            }
+            AssignChildren(rootNode, nodeDict);
 
-            return nodes;
+            return rootNode;
+        }
+
+        private void AssignChildren(Node node, Dictionary<int, List<Node>> nodeDict)
+        {
+            if (nodeDict.ContainsKey(node.RecursionId))
+            {
+                List<Node> children = nodeDict[node.RecursionId];
+                node.Children.AddRange(children);
+
+                foreach (Node child in children)
+                {
+                    AssignChildren(child, nodeDict);
+                }
+            }
         }
     }
 }

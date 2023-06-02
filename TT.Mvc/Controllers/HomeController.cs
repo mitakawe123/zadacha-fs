@@ -47,9 +47,9 @@ namespace TT.Mvc.Controllers
                 response.EnsureSuccessStatusCode();
 
                 string responseData = await response.Content.ReadAsStringAsync();
-                List<BrandNode> nodes = DeserializeNodes(responseData);
+                List<BrandNode> node = DeserializeNodes(responseData);
 
-                return View(nodes);
+                return View(node);
             }
             catch (Exception ex)
             {
@@ -59,12 +59,14 @@ namespace TT.Mvc.Controllers
 
         private List<BrandNode> DeserializeNodes(string responseData)
         {
-            List<BrandNode> nodes = JsonConvert.DeserializeObject<List<BrandNode>>(responseData);
-
-            foreach (var node in nodes)
-                node.Children = DeserializeNodes(JsonConvert.SerializeObject(node.Children));
-
-            return nodes;
+            BrandNode rootNode = JsonConvert.DeserializeObject<BrandNode>(responseData);
+            return rootNode.Children;
+        }
+            
+        private List<KeyValuePair<string, string>> DeserializePropsProd(string propsProdData)
+        {
+            List<KeyValuePair<string, string>> propsProd = JsonConvert.DeserializeObject<List<KeyValuePair<string, string>>>(propsProdData);
+            return propsProd;
         }
 
         public ActionResult Data()

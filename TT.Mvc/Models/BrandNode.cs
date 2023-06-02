@@ -8,17 +8,29 @@ namespace TT.Mvc.Models
         public string ProductCode { get; }
         public int BrandId { get; }
         public int RecursionId { get; }
-        public string PropertyName { get; }
+        public int ParentId { get; }
+        public string PropertyName { get;  }
         public string ProductName { get; }
         public string ProductValue { get; }
         public int RecursionLevel { get; }
+        
+        public List<BrandNode> Children { get; }
+        public List<KeyValuePair<string, string>> PropsProd { get; }
 
-        public string Parent { get; }
-        public List<BrandNode> Children { get; set; }
-
-        public BrandNode()
+        public BrandNode(string brandName, string productCode, int brandId, int recursionId, int parentId, string propertyName, string productName, string productValue, int recursionLevel)
         {
+            BrandName = brandName;
+            ProductCode = productCode;
+            BrandId = brandId;
+            RecursionId = recursionId;
+            ParentId = parentId;
+            PropertyName = propertyName;
+            ProductName = productName;
+            ProductValue = productValue;
+            RecursionLevel = recursionLevel;
+
             Children = new List<BrandNode>();
+            PropsProd = new List<KeyValuePair<string, string>>();
         }
     }
 }
