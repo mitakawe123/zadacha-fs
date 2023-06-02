@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Net;
 using System.Threading.Tasks;
+using TT.Api.TreeImplementation;
 using TT.Api.TreeImplementation.Tree;
 using TT.Lib.DataAccess;
 using TT.Lib.Entities;
@@ -29,7 +30,6 @@ namespace TT.Api.Controllers
         [Route("export")]
         public IActionResult Export()
         {
-            DotNetEnv.Env.Load();
             List<Node> nodes = new List<Node>();
             string connectionString = "Server=EL-N-0047\\SQLEXPRESS;Database=zadacha;User Id=admin;Password=pmghello!;";
             string storeProcedureFullName = "zadacha.dbo.RecursiveTreeProcedure";
@@ -44,21 +44,33 @@ namespace TT.Api.Controllers
 
                 using SqlDataReader oReader = command.ExecuteReader();
                 while (oReader.Read())
+                {
+                    int brandId,parentId;
+
+                    int.TryParse(oReader["BrandId"].ToString(), out brandId);
+                    int.TryParse(oReader["ParentId"].ToString(), out parentId);
+
                     nodes.Add(new Node(
-                            int.Parse(oReader["RecursionId"].ToString()),
-                            oReader["Name"].ToString(),
-                            int.Parse(oReader["RecursionLevel"].ToString()),
-                            oReader["ProductName"].ToString(),
-                            oReader["ProductCode"].ToString(),
-                            oReader["ProductValue"].ToString()
-                        ));
-                
+                        oReader["BrandName"].ToString(),
+                        oReader["ProductCode"].ToString(),
+                        brandId,
+                        int.Parse(oReader["RecursionId"].ToString()),
+                        parentId,
+                        oReader["PropertyName"].ToString(),
+                        oReader["ProductName"].ToString(),
+                        oReader["ProductValue"].ToString(),
+                        int.Parse(oReader["RecursionLevel"].ToString())
+                    ));
+                }
                 connection.Close();
             }
 
             BuildTree treeBuilder = new BuildTree();
             List<Node> tree = treeBuilder.BuildTreeMethod(nodes);
 
+            //StructureData structureData = new StructureData();
+            //List<Node> structuredData = structureData.StructureDataMethod(tree);
+            
             return Ok(tree);
         }
     }

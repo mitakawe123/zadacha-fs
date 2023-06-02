@@ -4,14 +4,17 @@ namespace TT.Mvc.Models
 {
     public class BrandNode
     {
+        public string BrandName { get; }
+        public string ProductCode { get; }
+        public int BrandId { get; }
+        public int RecursionId { get; }
+        public string PropertyName { get; }
+        public string ProductName { get; }
+        public string ProductValue { get; }
+        public int RecursionLevel { get; }
+
+        public string Parent { get; }
         public List<BrandNode> Children { get; set; }
-        public int RecursionId { get; set; }
-        public string Name { get; set; }
-        public int RecursionLevel { get; set; }
-        public string ProductName { get; set; }
-        public string ProductCode { get; set; }
-        public string ProductValue { get; set; }
-        public string DirectParent { get; set; }
 
         public BrandNode()
         {
