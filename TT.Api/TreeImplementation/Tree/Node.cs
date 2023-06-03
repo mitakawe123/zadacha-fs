@@ -29,7 +29,7 @@ namespace TT.Api.TreeImplementation.Tree
         }
 
         public Node(string brandName, string productCode, int brandId, int recursionId, int parentId, string propertyName, string productName, string productValue, int recursionLevel) :
-            this(brandName, productCode, brandId, propertyName, productCode)
+            this(brandName, productCode, brandId, propertyName, productName)
         {
             RecursionId = recursionId;
             ParentId = parentId;
@@ -38,20 +38,14 @@ namespace TT.Api.TreeImplementation.Tree
         }
 
         public Node(string brandName, string productCode, int brandId, string propertyName, string productName, string parent) :
-            this(brandName, productCode, brandId, propertyName, productCode)
+            this(brandName, productCode, brandId, propertyName, productName)
         {
             Parent = parent;
             PropsProd = new List<KeyValuePair<string, string>>();
         }
 
-        public void AddChild(Node node)
-        {
-            _children.Add(node);
-        }
+        public void AddChild(Node node) => _children.Add(node);
 
-        public void AddChildren(IEnumerable<Node> nodes)
-        {
-            _children.AddRange(nodes);
-        }
+        public void AddChildren(IEnumerable<Node> nodes) => _children.AddRange(nodes);
     }
 }
