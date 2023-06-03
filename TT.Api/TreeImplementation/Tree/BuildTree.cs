@@ -24,16 +24,14 @@ namespace TT.Api.TreeImplementation.Tree
 
         private void AssignChildren(Node node, Dictionary<int, List<Node>> nodeDict)
         {
-            if (nodeDict.ContainsKey(node.RecursionId))
-            {
-                List<Node> children = nodeDict[node.RecursionId];
-                node.Children.AddRange(children);
+            if (!nodeDict.ContainsKey(node.RecursionId))
+                return;
 
-                foreach (Node child in children)
-                {
-                    AssignChildren(child, nodeDict);
-                }
-            }
+            List<Node> children = nodeDict[node.RecursionId];
+            node.AddChildren(children);
+
+            foreach (Node child in children)
+                AssignChildren(child, nodeDict);
         }
     }
 }

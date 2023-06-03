@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TT.Api.TreeImplementation.Tree;
 
 namespace TT.Api.TreeImplementation
@@ -22,14 +23,14 @@ namespace TT.Api.TreeImplementation
 
         private void TraverseAndPushNode(Node currentNode, Node newCurrentNode)
         {
-            Node existingNode = newCurrentNode.Children.Find(node => node.ProductCode == currentNode.ProductCode);
-            if (existingNode != null)
-                existingNode.PropsProd.Add(new KeyValuePair<string, string>(currentNode.PropertyName, currentNode.ProductValue));
-            else
+            Node existingNode = newCurrentNode.Children.FirstOrDefault(node => node.ProductCode == currentNode.ProductCode);
+            if (existingNode == null)
             {
-                Node newNode = new Node(currentNode.BrandName,currentNode.ProductCode,currentNode.BrandId,currentNode.PropertyName,currentNode.PropertyName,currentNode.Parent);
-                newCurrentNode.Children.Add(newNode);
+                Node newNode = new Node(currentNode.BrandName, currentNode.ProductCode, currentNode.BrandId, currentNode.PropertyName, currentNode.PropertyName, currentNode.Parent);
+                newCurrentNode.AddChild(newNode);
             }
+            else
+                existingNode.PropsProd.Add(new KeyValuePair<string, string>(currentNode.PropertyName, currentNode.ProductValue));
 
             foreach (Node childNode in currentNode.Children)
                 TraverseAndPushNode(childNode, newCurrentNode);

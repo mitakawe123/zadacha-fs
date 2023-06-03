@@ -8,9 +8,7 @@ namespace TT.Api.TreeImplementation
         {
             node.Parent = parent;
             foreach (var child in node.Children)
-            {
                 AssignParentToChildren(child, node.PropertyName);
-            }
         }
     }
 }

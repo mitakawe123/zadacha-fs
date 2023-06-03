@@ -21,11 +21,11 @@
         <strong>brand:</strong> @node.BrandName<br />
         <strong>code:</strong> @node.ProductCode<br />
         <strong>id:</strong> @node.BrandId<br />
-        @node.Parent<br />
+        <strong>parent:</strong> @node.Parent<br />
 
         @if (node.PropsProd.Count > 0)
         {
-             <div>
+            <div>
                 @foreach (var childNode in node.PropsProd)
                 {
                     <span><strong>@childNode.Key:</strong> @Html.Raw(@childNode.Value)</span><br />
