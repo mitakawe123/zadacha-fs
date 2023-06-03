@@ -1,7 +1,7 @@
 CREATE PROCEDURE RecursiveTreeProcedure
 AS
 BEGIN
-    WITH RecursiveTree(Id, ParentId, Name, RecursionLevel)
+	WITH RecursiveTree(Id, ParentId, Name, RecursionLevel)
     AS
     (
         SELECT Id, ParentId, Name, 0 AS RecursionLevel
@@ -14,10 +14,12 @@ BEGIN
         FROM Properties prop
         INNER JOIN RecursiveTree rec ON prop.ParentId = rec.Id
     )
-    SELECT rt.Id AS RecursionId,rt.Name,RecursionLevel,prod.Name AS ProductName,prod.[Key] AS ProductCode,pp.Value AS ProductValue
+    SELECT br.Name AS BrandName,prod.[Key] AS ProductCode,br.Id AS BrandId,rt.Id AS RecursionId,prop.ParentId,rt.Name as PropertyName,prod.Name AS ProductName,pp.Value AS ProductValue,RecursionLevel
     FROM RecursiveTree AS rt
     LEFT JOIN ProductProperties AS pp ON pp.PropertyId = rt.Id
 	FULL JOIN Products AS prod ON prod.Id = pp.ProductId
+	FULL JOIN Properties AS prop ON prop.Id = pp.PropertyId
+	FULL JOIN Brand AS br ON br.Id = prod.BrandId
 	WHERE RecursionLevel IS NOT NULL
     ORDER BY rt.Id ASC;
 END;
