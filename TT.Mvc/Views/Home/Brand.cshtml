@@ -8,7 +8,10 @@
 <ul style="list-style: none;padding: 0;">
     @foreach (var node in Model)
     {
-        @RenderNode(node)
+        if (node.ProductCode != "")
+        {
+            @RenderNode(node)
+        }
     }
 </ul>
 
@@ -18,13 +21,14 @@
         <strong>brand:</strong> @node.BrandName<br />
         <strong>code:</strong> @node.ProductCode<br />
         <strong>id:</strong> @node.BrandId<br />
+        @node.Parent<br />
 
         @if (node.PropsProd.Count > 0)
         {
-            <div>
+             <div>
                 @foreach (var childNode in node.PropsProd)
                 {
-                    <strong>@childNode.Key:</strong> @Html.Raw(@childNode.Value)<br />
+                    <span><strong>@childNode.Key:</strong> @Html.Raw(@childNode.Value)</span><br />
                 }
             </div>
         }

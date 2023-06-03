@@ -13,11 +13,12 @@ namespace TT.Mvc.Models
         public string ProductName { get; }
         public string ProductValue { get; }
         public int RecursionLevel { get; }
-        
+        public string Parent { get; }
+
         public List<BrandNode> Children { get; }
         public List<KeyValuePair<string, string>> PropsProd { get; }
 
-        public BrandNode(string brandName, string productCode, int brandId, int recursionId, int parentId, string propertyName, string productName, string productValue, int recursionLevel)
+        public BrandNode(string brandName, string productCode, int brandId, int recursionId, int parentId, string propertyName, string productName, string productValue, int recursionLevel,string parent)
         {
             BrandName = brandName;
             ProductCode = productCode;
@@ -28,6 +29,7 @@ namespace TT.Mvc.Models
             ProductName = productName;
             ProductValue = productValue;
             RecursionLevel = recursionLevel;
+            Parent = parent;
 
             Children = new List<BrandNode>();
             PropsProd = new List<KeyValuePair<string, string>>();

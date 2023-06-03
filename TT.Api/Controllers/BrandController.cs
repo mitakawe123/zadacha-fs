@@ -28,7 +28,7 @@ namespace TT.Api.Controllers
         [HttpGet]
         [Route("export")]
         public IActionResult Export()
-        {
+        {   
             List<Node> nodes = new List<Node>();
             string connectionString = "Server=EL-N-0047\\SQLEXPRESS;Database=zadacha;User Id=admin;Password=pmghello!;";
             string storeProcedureFullName = "zadacha.dbo.RecursiveTreeProcedure";
@@ -72,6 +72,9 @@ namespace TT.Api.Controllers
 
             BuildTree treeBuilder = new BuildTree();
             Node tree = treeBuilder.BuildTreeMethod(nodes);
+
+            AssignParent parent = new AssignParent();
+            parent.AssignParentToChildren(tree, null);
 
             BuildProducts buildProducts = new BuildProducts(tree);
             Node travers = buildProducts.TraverseAndPush();

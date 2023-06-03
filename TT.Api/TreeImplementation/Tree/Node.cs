@@ -9,10 +9,11 @@ namespace TT.Api.TreeImplementation.Tree
         public int BrandId { get; }
         public int RecursionId { get; }
         public int ParentId { get; }
-        public string PropertyName { get; set; }
+        public string PropertyName { get; }
         public string ProductName { get; }
-        public string ProductValue { get; set; }
+        public string ProductValue { get; }
         public int RecursionLevel { get; }
+        public string Parent { get; set; }
         public List<Node> Children { get; }
         public List<KeyValuePair<string, string>> PropsProd { get; }
 
@@ -30,13 +31,14 @@ namespace TT.Api.TreeImplementation.Tree
             Children = new List<Node>();
         }
 
-        public Node (string brandName,string productCode,int brandId,string propertyName, string productName)
+        public Node (string brandName,string productCode,int brandId,string propertyName, string productName,string parent)
         {
             BrandName = brandName;
             ProductCode = productCode;
             BrandId = brandId;
             PropertyName = propertyName;
             ProductName = productName;
+            Parent = parent;
             Children = new List<Node>();
             PropsProd = new List<KeyValuePair<string, string>>();
         }

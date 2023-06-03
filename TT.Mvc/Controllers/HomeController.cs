@@ -62,12 +62,6 @@ namespace TT.Mvc.Controllers
             BrandNode rootNode = JsonConvert.DeserializeObject<BrandNode>(responseData);
             return rootNode.Children;
         }
-            
-        private List<KeyValuePair<string, string>> DeserializePropsProd(string propsProdData)
-        {
-            List<KeyValuePair<string, string>> propsProd = JsonConvert.DeserializeObject<List<KeyValuePair<string, string>>>(propsProdData);
-            return propsProd;
-        }
 
         public ActionResult Data()
         {
